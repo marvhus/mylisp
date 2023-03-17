@@ -21,10 +21,10 @@ pub enum TokenKind {
 }
 
 pub struct Token {
-	line: i64,
-	col:  i64,
+	pub	line: i64,
+	pub	col:  i64,
 
-	kind: TokenKind,
+	pub	kind: TokenKind,
 }
 
 impl Token {
@@ -35,7 +35,7 @@ impl Token {
 
 impl fmt::Display for Token {
 	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-		write!(f, "({}:{}, \tid: {:?})", self.line, self.col, self.kind)
+		write!(f, "({}:{}, {:?})", self.line, self.col, self.kind)
 	}
 }
 
