@@ -8,7 +8,7 @@ fn read_file(path: &str) -> String {
 } 
 
 fn main() {
-	let text = read_file("file.lisp");
+	let text = read_file("examples/file.lisp");
 	for tok in Lexer::from_iter(text.chars()) {
 		println!("{}", tok);
 	}

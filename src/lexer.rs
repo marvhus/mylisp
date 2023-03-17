@@ -2,10 +2,16 @@ use std::iter::Peekable;
 use std::fmt;
 
 #[derive(Debug)]
+pub enum KeywordKind {
+	Defun,
+}
+
+#[derive(Debug)]
 pub enum TokenKind {
 	Plus,
 	Minus,
-	
+
+	Keyword(KeywordKind),
 	Ident(String),
 
 	Int(i64),
@@ -83,7 +89,10 @@ impl<Chars: Iterator<Item=char>> Iterator for Lexer<Chars> {
 						while let Some(x) = self.chars.next_if(|x| x.is_alphanumeric()) {
 							text.push(x);
 						}
-						Some(self.new_tok(TokenKind::Ident(text)))
+						match text.as_str() {
+							"defun" => Some(self.new_tok(TokenKind::Keyword(KeywordKind::Defun))),
+							_ => Some(self.new_tok(TokenKind::Ident(text)))
+						}
 					} else {
 						while let Some(x) = self.chars.next_if(|x| x.is_numeric()) {
 							text.push(x);
